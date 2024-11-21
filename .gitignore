@@ -1,0 +1,7 @@
+# System folders
+.venv/
+**/.DS_Store
+**/__pycache__/
+# Folders with results
+results/
+runs/

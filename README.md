@@ -9,6 +9,8 @@ ShapeEmbedLite[^1] is a lightweight variant of ShapeEmbed[^2], designed to learn
 </picture>
 </p>
 
+<br />
+
 ## Getting started
 
 _tested with python 3.12_
@@ -23,6 +25,13 @@ python3 -m pip install --requirement requirements.txt
 
 `source .venv/bin/activate` enters the python virtual environment while a simple
 `deactivate` from within the virtual environment exits it.
+
+<br />
+
+## Data preparation
+To run ShapeEmbedLite, you need Euclidean distance matrices (EDMs) representing each object of your dataset. Follow the method presented over [here](https://github.com/uhlmanngroup/PrepareShapeEmbedDataset) to turn your segmentation binary masks into EDMs.
+
+<br />
 
 ## Run the model
 
@@ -101,6 +110,8 @@ The results of the run are gathered under a
 >   -s, --report-summary RPT_SUMMARY
 >                         desired number of report summary lines
 > ```
+
+<br />
 
 [^1]: Foix-Romero, A., Krull, A. and Uhlmann, V., 2025. A comparison of data-driven shape quantification methods for 2D microscopy images. ICCV-BIC. [DOI]()
 [^2]: Foix-Romero, A., Russell, C., Krull, A. and Uhlmann, V., 2025. ShapeEmbed: a self-supervised learning framework for 2D contour quantification. preprint [arXiv:2507.01009](

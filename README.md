@@ -1,6 +1,11 @@
 # ShapeEmbedLite
 
-ShapeEmbedLite[^1] is a lightweight variant of ShapeEmbed[^2], designed to learn latent representations (embeddings) of 2D shapes using deep learning models trained on distance matrices derived from shape contours. It introduces a novel, geometry-aware embedding framework that efficiently encodes 2D shapes and decodes them using minimal neural architectures (shallow MLPs). This design enables fast and accurate shape analysis, particularly well-suited for small and challenging microscopy image datasets or computationally constrained environments.
+ShapeEmbedLite is a lightweight variant of ShapeEmbed ([arXiv:2507.01009](
+https://doi.org/10.48550/arXiv.2507.01009)), designed to learn representations of 2D shapes using a deep learning model trained on distance matrices derived from object contours. 
+In contrast to ShapeEmbed, ShapeEmbedLite uses a multi-layer perceptron to decode latent codes back into contour points. This design makes the model lighter and well-suited for small and challenging microscopy image datasets or computationally constrained environments.
+
+If you use ShapeEmbedLite in your work, please cite it as follows: 
+> Foix-Romero, A., Krull, A. and Uhlmann, V., 2025. A comparison of data-driven shape quantification methods for 2D microscopy images. ICCV BIC Workshop. [Preprint]()
 
 <p align="center">
 <picture>
@@ -29,7 +34,7 @@ python3 -m pip install --requirement requirements.txt
 <br />
 
 ## Data preparation
-To run ShapeEmbedLite, you need Euclidean distance matrices (EDMs) representing each object of your dataset. Follow the method presented over [here](https://github.com/uhlmanngroup/PrepareShapeEmbedDataset) to turn your segmentation binary masks into EDMs.
+To run ShapeEmbedLite, you first need to extract the 2D contour of the objects you are interested in analyzing, and then to convert these contours into Euclidean distance matrices (EDMs). Follow the method provided [over here](https://github.com/uhlmanngroup/PrepareShapeEmbedDataset) to turn your binary segmentation masks into EDMs.
 
 <br />
 
@@ -112,7 +117,3 @@ The results of the run are gathered under a
 > ```
 
 <br />
-
-[^1]: Foix-Romero, A., Krull, A. and Uhlmann, V., 2025. A comparison of data-driven shape quantification methods for 2D microscopy images. ICCV-BIC. [DOI]()
-[^2]: Foix-Romero, A., Russell, C., Krull, A. and Uhlmann, V., 2025. ShapeEmbed: a self-supervised learning framework for 2D contour quantification. preprint [arXiv:2507.01009](
-https://doi.org/10.48550/arXiv.2507.01009).

@@ -62,6 +62,7 @@ class Normalize(nn.Module):
     n = n[:, -1] # get down to B norms
     n = n.view(s[0], 1, 1, 1) # view as B, 1, 1, 1
     n = n.repeat(1, s[1], s[2], s[3]) # back up to B, C, H, W, used for division
+    n = torch.clamp(n, min=1e-8)
     return x / n
 
 # helper class for padded convolution module

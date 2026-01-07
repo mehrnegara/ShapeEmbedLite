@@ -305,14 +305,14 @@ def main(clargs):
   # get dataloaders from input dataset
   dataset_name = get_dataset_name(clargs)
   if clargs.dataset:
-    train_loader, val_loader, test_loader = get_dataloaders(clargs.dataset[1])
+    train_loader, val_loader, test_loader = get_dataloaders(clargs.dataset[1], use_all_data=clargs.use_all_data)
   elif clargs.train_test_dataset:
-      train_loader, val_loader, test_loader = get_dataloaders(clargs.train_test_dataset[1:])
+      train_loader, val_loader, test_loader = get_dataloaders(clargs.train_test_dataset[1:],use_all_data=clargs.use_all_data)
   else:
     sys.exit('dataset specification not present or not supported')
   sample_input, _ = next(iter(train_loader))
   batch_size, n_channels, matrix_size, matrix_size_ = sample_input.shape
-  assert batch_size == 4, f'unexpected batch size {batch_size}, should be 4'
+  assert batch_size == 16, f'unexpected batch size {batch_size}, should be 4'
   assert n_channels == 1, f'unexpected numer of channels {n_channels}, should be 1'
   assert matrix_size == matrix_size_, f'non-square matrix: {matrix_size}x{matrix_size_}'
   assert math.log2(matrix_size).is_integer(), f'non-power-of-two matrix size: {matrix_size}'
@@ -608,6 +608,8 @@ if __name__ == "__main__":
                      , help="Path to weights to load the model with" )
   parser.add_argument( '--skip-training', action=argparse.BooleanOptionalAction, default=False
                      , help=f'skip/do not skip training phase' )
+  parser.add_argument('--use-all-data', action=argparse.BooleanOptionalAction, default=False,
+                    help='Use the full dataset for training/validation/testing loaders (no splitting).')
   parser.add_argument( '--report-only', nargs=2, metavar=('TEST_LATENT_SPACE_NPY', 'TEST_LABELS_NPY'), type=pathlib.Path
                      , help=f'skip to the reporting based on provided latent space and labels (no training, no testing)')
   parser.add_argument( '-r', '--learning-rate', metavar="LR", type=float, default=0.001
@@ -621,7 +623,7 @@ if __name__ == "__main__":
   parser.add_argument( '--reflection-invariant-loss', action=argparse.BooleanOptionalAction, default=True
                      , help=f'enable/disable use of reflection invariant loss as reconstruction loss')
   parser.add_argument( '-e', '--number-epochs', metavar="N_EPOCHS", type=int, default=100
-                     , help="desired number of epochs (default=100)" )
+                     , help="desired number of epochs (default=200)" )
   parser.add_argument( '-n', '--number-splits-classify', metavar="N_SPLITS_CLASSIFY", type=int
                      , help="desired number of splits for classification" )
   parser.add_argument( '-l', '--latent-space-size', metavar="LS_SZ", type=int, default=128
